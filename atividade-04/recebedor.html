@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Recebedor de notificações</title>
+  </head>
+  <body>
+    <!-- Carrega a biblioteca cliente Socket.io do servidor -->
+    <script src="http://localhost:4555/socket.io/socket.io.js"></script>
+
+    <script>
+      // Cria uma instância de conexão Socket.io com o servidor local
+      var socket = io("http://localhost:4555", {
+        transports: ["websocket", "polling", "flashsocket"],
+      });
+
+      // Configura um ouvinte para o evento 'notificacao'
+      socket.on("notificacao", function (data) {
+        // Quando um evento 'notificacao' é recebido do servidor, atualiza o conteúdo do elemento 'messagebox'
+        document.getElementById("messagebox").innerHTML = data;
+      });
+    </script>
+
+    <!-- O elemento 'messagebox' exibe o conteúdo da notificação -->
+    <h1>Mensagem recebida:</h1>
+    <div id="messagebox"></div>
+  </body>
+</html>
